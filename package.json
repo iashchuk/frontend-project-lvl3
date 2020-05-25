@@ -1,0 +1,43 @@
+{
+  "name": "hexlet-rss-aggregator",
+  "version": "1.0.0",
+  "description": "RSS-aggregator",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iashchuk/frontend-project-lvl3.git"
+  },
+  "keywords": [
+    "hexlet",
+    "rss",
+    "aggregator"
+  ],
+  "author": "Vitalii Iashchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iashchuk/frontend-project-lvl3/issues"
+  },
+  "homepage": "https://github.com/iashchuk/frontend-project-lvl3#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.2.6",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "html-webpack-plugin": "^4.0.4",
+    "jest": "^25.2.7",
+    "jest-cli": "^25.2.7",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
