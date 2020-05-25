@@ -3,3 +3,5 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/330c469b2fef991c219d/test_coverage)](https://codeclimate.com/github/iashchuk/hexlet-rss-aggregator/test_coverage)
 
 # hexlet-rss-aggregator
+
+Deploy: https://hexlet-rss-aggregator.now.sh
