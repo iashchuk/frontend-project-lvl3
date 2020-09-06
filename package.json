@@ -21,7 +21,16 @@
     "url": "https://github.com/iashchuk/frontend-project-lvl3/issues"
   },
   "homepage": "https://github.com/iashchuk/frontend-project-lvl3#readme",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
+    "i18next": "^19.7.0",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "on-change": "^2.1.2",
+    "popper.js": "^1.16.1",
+    "yup": "^0.29.3"
+  },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
