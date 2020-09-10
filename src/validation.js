@@ -1,11 +1,14 @@
-
 import * as yup from 'yup';
+import i18next from 'i18next';
 
-const urlSchema = yup.string().url().required();
+const getUrlSchema = () => yup.string()
+  .url(i18next.t('form.invalid'))
+  .required(i18next.t('form.required'));
+
 
 const validateUrl = (url, feeds) => {
   const feedUrls = feeds.map((feed) => feed.url);
-  const schema = urlSchema.notOneOf(feedUrls, 'Rss already exists');
+  const schema = getUrlSchema().notOneOf(feedUrls, i18next.t('form.exist'));
   try {
     schema.validateSync(url);
     return '';
