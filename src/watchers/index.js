@@ -1,7 +1,7 @@
 import onChange from 'on-change';
-import renderForm from './form.js';
-import renderFeeds from './feeds.js';
-import renderLoadingInfo from './loading.js';
+import renderForm from './form';
+import renderFeeds from './feeds';
+import renderLoadingInfo from './loading';
 
 
 export default (state) => onChange(state, (path) => {

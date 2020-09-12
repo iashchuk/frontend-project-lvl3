@@ -6,11 +6,11 @@ import constants from './constants';
 
 const loadFeed = (state, url) => {
   state.loading = {
-    error: '',
     status: 'loading',
+    error: '',
   };
 
-  axios.get(`${constants.proxy}/${url}`)
+  axios.get(`${constants.PROXY}/${url}`)
     .then((response) => {
       const { title, items: posts } = parseRss(response.data);
       const id = Date.now();
@@ -45,7 +45,7 @@ const loadFeed = (state, url) => {
 };
 
 const watchFeed = (state) => {
-  const promises = Object.values(state.feeds).map(({ id, url }) => axios.get(`${constants.proxy}/${url}`)
+  const promises = Object.values(state.feeds).map(({ id, url }) => axios.get(`${constants.PROXY}/${url}`)
     .then((response) => {
       const { items: update } = parseRss(response.data);
       const posts = state.feeds[id]?.posts || [];
