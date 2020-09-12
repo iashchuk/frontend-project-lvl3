@@ -2,6 +2,7 @@ import 'bootstrap';
 import watch from './watchers';
 import actions from './actions';
 import validate from './validation';
+import constants from './constants';
 
 
 const init = () => {
@@ -20,6 +21,8 @@ const init = () => {
   };
 
   const state = watch(initialState);
+  setTimeout(() => actions.watchFeed(state), constants.UPDATE_INTERVAL);
+
 
   const onSubmit = (evt) => {
     evt.preventDefault();

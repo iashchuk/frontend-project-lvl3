@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { parseRss } from './parseRss.js';
-
-const proxy = 'https://cors-anywhere.herokuapp.com';
+import _ from 'lodash';
+import { parseRss } from './parseRss';
+import constants from './constants';
 
 
 const loadFeed = (state, url) => {
@@ -10,7 +10,7 @@ const loadFeed = (state, url) => {
     status: 'loading',
   };
 
-  axios.get(`${proxy}/${url}`)
+  axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { title, items: posts } = parseRss(response.data);
       const id = Date.now();
@@ -44,7 +44,39 @@ const loadFeed = (state, url) => {
     });
 };
 
+const watchFeed = (state) => {
+  const promises = Object.values(state.feeds).map(({ id, url }) => axios.get(`${constants.proxy}/${url}`)
+    .then((response) => {
+      const { items: update } = parseRss(response.data);
+      const posts = state.feeds[id]?.posts || [];
+      return {
+        id,
+        posts: [
+          ..._.differenceWith(update, posts, (post1, post2) => post1.link === post2.link),
+          ...posts,
+        ],
+      };
+    })
+    .catch((error) => {
+      state.loading = {
+        status: 'failed',
+        error: error.message,
+      };
+      throw error;
+    }));
+
+  Promise.all(promises)
+    .then((data) => {
+      state.feeds = data.reduce((feeds, { id, posts }) => ({
+        ...feeds, [id]: { ...feeds[id], posts },
+      }), state.feeds);
+    }).finally(() => {
+      setTimeout(() => watchFeed(state), constants.UPDATE_INTERVAL);
+    });
+};
+
 
 export default {
+  watchFeed,
   loadFeed,
 };
