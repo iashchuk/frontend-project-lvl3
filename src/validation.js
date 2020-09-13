@@ -5,7 +5,6 @@ const getUrlSchema = () => yup.string()
   .url(i18next.t('form.invalid'))
   .required(i18next.t('form.required'));
 
-
 const validateUrl = (url, feeds) => {
   const feedUrls = feeds.map((feed) => feed.url);
   const schema = getUrlSchema().notOneOf(feedUrls, i18next.t('form.exist'));
@@ -16,7 +15,6 @@ const validateUrl = (url, feeds) => {
     return error.message;
   }
 };
-
 
 export default {
   url: validateUrl,

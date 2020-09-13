@@ -3,7 +3,6 @@ import renderForm from './form';
 import renderFeeds from './feeds';
 import renderLoadingInfo from './loading';
 
-
 export default (state) => onChange(state, (path) => {
   const { feeds, form, loading } = state;
 

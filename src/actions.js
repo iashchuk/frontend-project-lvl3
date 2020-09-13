@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { parseRss } from './parseRss';
 import constants from './constants';
 
-
 const loadFeed = (state, url) => {
   state.loading = {
     status: 'loading',
@@ -74,7 +73,6 @@ const watchFeed = (state) => {
       setTimeout(() => watchFeed(state), constants.UPDATE_INTERVAL);
     });
 };
-
 
 export default {
   watchFeed,

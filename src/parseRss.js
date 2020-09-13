@@ -5,7 +5,6 @@ const parseInfo = (item) => {
   return { title, link, description };
 };
 
-
 export const parseRss = (xml) => {
   const parser = new DOMParser();
   const document = parser.parseFromString(xml, 'text/xml');
@@ -15,6 +14,5 @@ export const parseRss = (xml) => {
     ...parseInfo(document), items: items.map(parseInfo),
   };
 };
-
 
 export default parseRss;

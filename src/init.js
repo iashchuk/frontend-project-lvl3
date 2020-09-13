@@ -5,7 +5,6 @@ import validate from './validation';
 import setupLocales from './locales';
 import constants from './constants';
 
-
 export default () => i18next.init(setupLocales()).then(() => {
   const form = document.querySelector('.rss-form');
 
@@ -23,7 +22,6 @@ export default () => i18next.init(setupLocales()).then(() => {
 
   const state = watch(initialState);
   setTimeout(() => actions.watchFeed(state), constants.UPDATE_INTERVAL);
-
 
   const onSubmit = (evt) => {
     evt.preventDefault();
