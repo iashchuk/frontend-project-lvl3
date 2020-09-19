@@ -14,12 +14,15 @@ const loadFeed = (state, url) => {
   axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { title, items } = parseRss(response.data);
-      const id = Date.now();
-      const posts = items.map((item) => ({ feedId: id, ...item }));
+      const id = _.uniqueId();
+      const timestamp = _.now();
+      const posts = items.map((item) => ({ ...item, feedId: id, timestamp }));
 
       state.feeds = [
         ...state.feeds,
-        { id, title, url },
+        {
+          id, title, url, timestamp,
+        },
       ];
 
       state.posts = [...state.posts, ...posts];
@@ -42,7 +45,8 @@ const watchFeed = (state) => {
   const promises = state.feeds.map(({ id, url }) => axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { items } = parseRss(response.data);
-      const update = items.map((item) => ({ feedId: id, ...item }));
+      const timestamp = _.now();
+      const update = items.map((item) => ({ ...item, feedId: id, timestamp }));
       return _.differenceWith(update, state.posts, (post1, post2) => post1.link === post2.link);
     })
     .catch((error) => {
@@ -54,8 +58,8 @@ const watchFeed = (state) => {
     }));
 
   Promise.all(promises)
-    .then(([posts]) => {
-      state.posts = [...posts, ...state.posts];
+    .then((data) => {
+      state.posts = data.reduce((posts, update) => [...posts, ...update], state.posts);
     }).finally(() => {
       setTimeout(() => watchFeed(state), constants.updateInterval);
     });
