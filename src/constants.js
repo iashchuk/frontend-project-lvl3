@@ -1,7 +1,7 @@
-const PROXY = 'https://cors-anywhere.herokuapp.com';
-const UPDATE_INTERVAL = 5000;
+const proxy = 'https://cors-anywhere.herokuapp.com';
+const updateInterval = 5000;
 
 export default {
-  PROXY,
-  UPDATE_INTERVAL,
+  proxy,
+  updateInterval,
 };

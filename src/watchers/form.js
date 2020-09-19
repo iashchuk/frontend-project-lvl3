@@ -3,9 +3,6 @@ const renderForm = ({ status, error }) => {
   const feedback = document.querySelector('.feedback');
 
   switch (status) {
-    case 'filling':
-      return;
-
     case 'valid':
       input.classList.remove('is-invalid');
       feedback.classList.remove('text-danger');

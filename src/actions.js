@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import axios from 'axios';
 import _ from 'lodash';
 import { parseRss } from './parseRss';
@@ -5,24 +7,14 @@ import constants from './constants';
 
 const loadFeed = (state, url) => {
   state.loading = {
+    ...state.loading,
     status: 'loading',
-    error: '',
   };
 
-  axios.get(`${constants.PROXY}/${url}`)
+  axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { title, items: posts } = parseRss(response.data);
       const id = Date.now();
-
-      state.loading = {
-        status: 'waiting',
-        error: '',
-      };
-
-      state.form = {
-        status: 'filling',
-        error: '',
-      };
 
       state.feeds = {
         ...state.feeds,
@@ -32,6 +24,11 @@ const loadFeed = (state, url) => {
           url,
           posts,
         },
+      };
+
+      state.loading = {
+        ...state.loading,
+        status: 'waiting',
       };
     })
     .catch((error) => {
@@ -44,7 +41,7 @@ const loadFeed = (state, url) => {
 };
 
 const watchFeed = (state) => {
-  const promises = Object.values(state.feeds).map(({ id, url }) => axios.get(`${constants.PROXY}/${url}`)
+  const promises = Object.values(state.feeds).map(({ id, url }) => axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { items: update } = parseRss(response.data);
       const posts = state.feeds[id]?.posts || [];
@@ -70,7 +67,7 @@ const watchFeed = (state) => {
         ...feeds, [id]: { ...feeds[id], posts },
       }), state.feeds);
     }).finally(() => {
-      setTimeout(() => watchFeed(state), constants.UPDATE_INTERVAL);
+      setTimeout(() => watchFeed(state), constants.updateInterval);
     });
 };
 

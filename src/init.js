@@ -11,17 +11,17 @@ export default () => i18next.init(setupLocales()).then(() => {
   const initialState = {
     feeds: {},
     form: {
-      status: 'filling',
-      error: '',
+      status: 'invalid',
+      error: null,
     },
     loading: {
       status: 'waiting',
-      error: '',
+      error: null,
     },
   };
 
   const state = watch(initialState);
-  setTimeout(() => actions.watchFeed(state), constants.UPDATE_INTERVAL);
+  setTimeout(() => actions.watchFeed(state), constants.updateInterval);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
