@@ -9,7 +9,8 @@ export default () => i18next.init(setupLocales()).then(() => {
   const form = document.querySelector('.rss-form');
 
   const initialState = {
-    feeds: {},
+    feeds: [],
+    posts: [],
     form: {
       status: 'invalid',
       error: null,

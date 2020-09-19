@@ -4,7 +4,9 @@ import renderFeeds from './feeds';
 import renderLoadingInfo from './loading';
 
 export default (state) => onChange(state, (path) => {
-  const { feeds, form, loading } = state;
+  const {
+    feeds, posts, form, loading,
+  } = state;
 
   switch (path) {
     case 'form':
@@ -14,7 +16,8 @@ export default (state) => onChange(state, (path) => {
       return renderLoadingInfo(loading);
 
     case 'feeds':
-      return renderFeeds(feeds);
+    case 'posts':
+      return renderFeeds(feeds, posts);
 
     default:
       throw new Error(`Unknown state path: '${path}'`);

@@ -4,12 +4,12 @@ const renderPost = (post) => `
     </li>
     `;
 
-const renderFeeds = (feeds) => {
+const renderFeeds = (feeds, posts) => {
   const feedsContainer = document.querySelector('.feeds');
 
-  const feedsMarkup = Object.values(feeds).sort((feed1, feed2) => feed2.id - feed1.id).map(({ title, posts }) => `
+  const feedsMarkup = [...feeds].sort((feed1, feed2) => feed2.id - feed1.id).map(({ id, title }) => `
         <h2>${title}</h2>
-        <ul>${posts.map(renderPost).join('')}</ul>
+        <ul>${posts.filter((item) => item.feedId === id).map(renderPost).join('')}</ul>
       `).join('');
 
   feedsContainer.innerHTML = feedsMarkup;
