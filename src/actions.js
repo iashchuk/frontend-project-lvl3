@@ -15,17 +15,10 @@ const loadFeed = (state, url) => {
     .then((response) => {
       const { title, items } = parseRss(response.data);
       const id = _.uniqueId();
-      const timestamp = _.now();
-      const posts = items.map((item) => ({ ...item, feedId: id, timestamp }));
+      const posts = items.map((item) => ({ ...item, feedId: id }));
 
-      state.feeds = [
-        ...state.feeds,
-        {
-          id, title, url, timestamp,
-        },
-      ];
-
-      state.posts = [...state.posts, ...posts];
+      state.feeds.unshift({ id, title, url });
+      state.posts.unshift(...posts);
 
       state.loading = {
         ...state.loading,
@@ -45,8 +38,7 @@ const watchFeed = (state) => {
   const promises = state.feeds.map(({ id, url }) => axios.get(`${constants.proxy}/${url}`)
     .then((response) => {
       const { items } = parseRss(response.data);
-      const timestamp = _.now();
-      const update = items.map((item) => ({ ...item, feedId: id, timestamp }));
+      const update = items.map((item) => ({ ...item, feedId: id }));
       return _.differenceWith(update, state.posts, (post1, post2) => post1.link === post2.link);
     })
     .catch((error) => {
@@ -59,7 +51,7 @@ const watchFeed = (state) => {
 
   Promise.all(promises)
     .then((data) => {
-      state.posts = data.reduce((posts, update) => [...posts, ...update], state.posts);
+      state.posts.unshift(...data.flat());
     }).finally(() => {
       setTimeout(() => watchFeed(state), constants.updateInterval);
     });

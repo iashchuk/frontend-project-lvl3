@@ -10,7 +10,7 @@ const validateUrl = (url, feeds) => {
   const schema = getUrlSchema().notOneOf(feedUrls, i18next.t('form.exist'));
   try {
     schema.validateSync(url);
-    return '';
+    return null;
   } catch (error) {
     return error.message;
   }
